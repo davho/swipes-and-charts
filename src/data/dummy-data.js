@@ -1,107 +1,132 @@
-import MyDummyItem from '../models/my-dummy-item'
+import MyDummyTask from '../models/my-dummy-task'
 
-const MYDUMMYLIST = [
+const MYDUMMYTASKS = [
 
-    new MyDummyItem (
+    new MyDummyTask (
         '1',
-        'List item one'
+        'List item one',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '2',
-        'List item two'
+        'List item two',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '3',
-        'List item three'
+        'List item three',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '4',
-        'List item four'
+        'List item four',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '5',
-        'List item five'
+        'List item five',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '6',
-        'List item six'
+        'List item six',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '7',
-        'List item seven'
+        'List item seven',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '8',
-        'List item eight'
+        'List item eight',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '9',
-        'List item nine'
+        'List item nine',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '10',
-        'List item ten'
+        'List item ten',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '11',
-        'List item eleven'
+        'List item eleven',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '12',
-        'List item twelve'
+        'List item twelve',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '13',
-        'List item thirteen'
+        'List item thirteen',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '14',
-        'List item fourteen'
+        'List item fourteen',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '15',
-        'List item fifteen'
+        'List item fifteen',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '16',
-        'List item sixteen'
+        'List item sixteen',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '17',
-        'List item seventeen'
+        'List item seventeen',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '18',
-        'List item eighteen'
+        'List item eighteen',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '19',
-        'List item nineteen'
+        'List item nineteen',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '20',
-        'List item twenty'
+        'List item twenty',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '21',
-        'List item twenty-one'
+        'List item twenty-one',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '22',
-        'List item twenty-two'
+        'List item twenty-two',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '23',
-        'List item twenty-three'
+        'List item twenty-three',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '24',
-        'List item twenty-four'
+        'List item twenty-four',
+        false
     ),
-    new MyDummyItem (
+    new MyDummyTask (
         '25',
-        'List item twenty-five'
+        'List item twenty-five',
+        false
     )
 ]
 
-export default MYDUMMYLIST
+export default MYDUMMYTASKS
