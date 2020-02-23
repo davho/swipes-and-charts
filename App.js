@@ -4,14 +4,19 @@
 
 //DO: npm install --save redux react-redux
 
+//DO: expo install react-navigation react-navigation-drawer react-navigation-tabs react-navigation-stack react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+
 import React from 'react'
 
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 
+import { enableScreens } from 'react-native-screens' //Method to call anywhere in App.js to make navigation more performant
+
 import tasksReducer from './src/redux/tasksReducer'
 
-import TasksScreen from './src/screens/TasksScreen'
+//import TasksScreen from './src/screens/TasksScreen'
+import AppNav from './src/navigation/AppNav'
 
 /* EXPLANATION OF WHAT'S GOING ON WITH REDUX:
 1) import { createStore, combineReducers } from 'redux' and { Provider } from 'react-redux'
@@ -27,11 +32,13 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer)
 
+enableScreens()
+
 const App = () => {
 
     return (
         <Provider store={store}>
-            <TasksScreen/>
+            <AppNav/>
         </Provider>
     )
 }

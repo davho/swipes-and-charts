@@ -40,8 +40,7 @@ const styles = StyleSheet.create({
     },
     tasksContainer: {
         width: '100%',
-        marginTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight, //Height of the status bar on Android Marshmallow (API 23) and above is 24dp (Density Independent Pixels) and before Marshmallow was 25dp but StatusBar.currentHeight takes care of this automatically
-        marginBottom: 10
+        marginTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight //Height of the status bar on Android Marshmallow (API 23) and above is 24dp (Density Independent Pixels) and before Marshmallow was 25dp but StatusBar.currentHeight takes care of this automatically
     }
 })
 
