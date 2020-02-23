@@ -73,7 +73,6 @@ const TaskItem = ({text, isLast, onSwipeFromRight, onLeftPress1}) => {
               easing: Easing.bezier(0,.8,.5,1)
             }).start()
     }
-
     return (
         <Animated.View style={{height: height, opacity: opacity}}>
             <Swipeable
