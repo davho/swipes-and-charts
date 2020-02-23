@@ -4,127 +4,127 @@ const MYDUMMYTASKS = [
 
     new MyDummyTask (
         '1',
-        'List item one',
+        'Task one',
         false
     ),
     new MyDummyTask (
         '2',
-        'List item two',
+        'Task two',
         false
     ),
     new MyDummyTask (
         '3',
-        'List item three',
+        'Task three',
         false
     ),
     new MyDummyTask (
         '4',
-        'List item four',
+        'Task four',
         false
     ),
     new MyDummyTask (
         '5',
-        'List item five',
+        'Task five',
         false
     ),
     new MyDummyTask (
         '6',
-        'List item six',
+        'Task six',
         false
     ),
     new MyDummyTask (
         '7',
-        'List item seven',
+        'Task seven',
         false
     ),
     new MyDummyTask (
         '8',
-        'List item eight',
+        'Task eight',
         false
     ),
     new MyDummyTask (
         '9',
-        'List item nine',
+        'Task nine',
         false
     ),
     new MyDummyTask (
         '10',
-        'List item ten',
+        'Task ten',
         false
     ),
     new MyDummyTask (
         '11',
-        'List item eleven',
+        'Task eleven',
         false
     ),
     new MyDummyTask (
         '12',
-        'List item twelve',
+        'Task twelve',
         false
     ),
     new MyDummyTask (
         '13',
-        'List item thirteen',
+        'Task thirteen',
         false
     ),
     new MyDummyTask (
         '14',
-        'List item fourteen',
+        'Task fourteen',
         false
     ),
     new MyDummyTask (
         '15',
-        'List item fifteen',
+        'Task fifteen',
         false
     ),
     new MyDummyTask (
         '16',
-        'List item sixteen',
+        'Task sixteen',
         false
     ),
     new MyDummyTask (
         '17',
-        'List item seventeen',
+        'Task seventeen',
         false
     ),
     new MyDummyTask (
         '18',
-        'List item eighteen',
+        'Task eighteen',
         false
     ),
     new MyDummyTask (
         '19',
-        'List item nineteen',
+        'Task nineteen',
         false
     ),
     new MyDummyTask (
         '20',
-        'List item twenty',
+        'Task twenty',
         false
     ),
     new MyDummyTask (
         '21',
-        'List item twenty-one',
+        'Task twenty-one',
         false
     ),
     new MyDummyTask (
         '22',
-        'List item twenty-two',
+        'Task twenty-two',
         false
     ),
     new MyDummyTask (
         '23',
-        'List item twenty-three',
+        'Task twenty-three',
         false
     ),
     new MyDummyTask (
         '24',
-        'List item twenty-four',
+        'Task twenty-four',
         false
     ),
     new MyDummyTask (
         '25',
-        'List item twenty-five',
+        'Task twenty-five',
         false
     )
 ]

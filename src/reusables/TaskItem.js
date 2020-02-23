@@ -54,7 +54,7 @@ const RightActions = ({progress, dragX}) => {
     )
 }
 
-const Task = ({text, isLast, onSwipeFromRight, onLeftPress1}) => {
+const TaskItem = ({text, isLast, onSwipeFromRight, onLeftPress1}) => {
 
     let height = new Animated.Value(70)   //Animate from 70px
     let opacity = new Animated.Value(1)   //Animate from 1
@@ -129,4 +129,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Task
+export default TaskItem

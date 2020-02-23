@@ -1,28 +1,14 @@
 import React, { useState } from 'react'
 import { Text, View, SafeAreaView, StyleSheet, StatusBar, Platform, FlatList } from 'react-native'
-import Task from '../reusables/Task'
+import { useSelector, useDispatch } from 'react-redux'
+import TaskItem from '../reusables/TaskItem'
 
-import MYDUMMYTASKS from '../data/dummy-data'
+import * as tasksActions from '../redux/tasksActions'
 
-const taskData = MYDUMMYTASKS //This will be pulled from redux, then eventually redux will pull from server and dummy data will be unused
+const TasksScreen = () => {
+    const dispatch = useDispatch() //Hooks can only be called from inside the body of a function component, including the useDispatch hook from redux
 
-const Tasks = () => {
-
-    //This will eventually happen when fetching data from redux
-    const [incompleteTasks, setIncompleteTasks] = useState(taskData)
-
-    //This will eventually all happen in a redux reducer
-    const markComplete = (id) => {
-
-        let task = incompleteTasks.filter(i => i.someId === id)[0]
-
-        task.complete = true
-
-        let newIncompleteTasks = incompleteTasks.filter(i => i.complete === false)
-
-        setIncompleteTasks(newIncompleteTasks)
-
-    }
+    const incompleteTasks = useSelector(state => state.tasksReducer.incompleteTasks)
 
     return (
             <SafeAreaView style={styles.screenContainer}>
@@ -32,10 +18,10 @@ const Tasks = () => {
                     data={incompleteTasks}
                     keyExtractor={item => item.someId}
                     renderItem={itemData =>
-                        <Task
+                        <TaskItem
                             text={itemData.item.description}
-                            isLast={taskData.length === +itemData.item.someId}
-                            onSwipeFromRight={() => markComplete(itemData.item.someId)}
+                            isLast={false}
+                            onSwipeFromRight={() => dispatch(tasksActions.removeTask(itemData.item.someId))}
                             onLeftPress1={() => alert('Calendar modal here')}
                         />
                     }
@@ -51,4 +37,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Tasks
+export default TasksScreen

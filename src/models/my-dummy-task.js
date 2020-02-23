@@ -1,8 +1,8 @@
 class MyDummyTask {
-    constructor (someId, description, complete) {
+    constructor (someId, description, isComplete) {
         this.someId = someId
         this.description = description
-        this.complete = complete
+        this.isComplete = isComplete
     }
 }
 
