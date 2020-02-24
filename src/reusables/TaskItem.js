@@ -22,12 +22,12 @@ const LeftActions = ({progress, dragX, onPress1}) => {
 
     return (
         <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity style={{...styles.leftActionContainers, backgroundColor: 'blue'}} onPress={onPress1}>
+            <TouchableOpacity style={{...styles.leftActionContainers, backgroundColor: 'rgb(0,0,255)'}} onPress={onPress1}>
                 <Animated.View style={[styles.leftActionIcon, {transform: [{scale: scale1}]}]}>
                     <MaterialCommunityIcons name='calendar-clock' size={32} color='white'/>
                 </Animated.View>
             </TouchableOpacity>
-            <TouchableOpacity style={{...styles.leftActionContainers, backgroundColor: 'green'}} onPress={() => alert('I wish I could close this task: https://stackoverflow.com/questions/60358902/react-native-gesture-handler-swipeable-giving-typeerror-illegal-invocation-wi')}>
+            <TouchableOpacity style={{...styles.leftActionContainers, backgroundColor: 'rgb(0,128,0)'}} onPress={() => alert('I wish I could close this task: https://stackoverflow.com/questions/60358902/react-native-gesture-handler-swipeable-giving-typeerror-illegal-invocation-wi')}>
                 <Animated.View style={[styles.leftActionIcon, {transform: [{scale: scale2}]}]}>
                     <AntDesign name='back' size={32} color='white'/>
                 </Animated.View>
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     },
     rightActionContainer: {
         flex: 1, //Making flex take up the full width automatically makes the swipe gesture complete at > 50% when rightThreshold is at default (which is half the panel's width). Without making it take up the full width it will never complete.
-        backgroundColor: 'red',
+        backgroundColor: 'rgb(255,0,0)',
         justifyContent: 'center',
         alignItems: 'flex-end'
     },
