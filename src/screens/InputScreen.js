@@ -14,7 +14,7 @@ const InputScreen = () => {
         inputs[key].focus()
     }
 
-    return (
+    return ( //spellCheck and autoCorrect are not working here for some reason
         <KeyboardAvoidingView style={{flex: 1}} behavior='padding' keyboardVerticalOffset={100}>
             <ScrollView>
                 <View style={styles.form}>
