@@ -3,9 +3,10 @@ import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs' //https://reactnavigation.org/docs/en/bottom-tab-navigator.html
 
-import { MaterialCommunityIcons } from 'react-native-vector-icons';
+import { MaterialCommunityIcons } from 'react-native-vector-icons'
 
 import { TasksScreen, InputScreen } from '../screens'
+
 
 const defaultStackNavigatorOptions = {
     headerStyle: {
@@ -34,9 +35,15 @@ const InputSingleStackScreen = createStackNavigator({
     defaultNavigationOptions: defaultStackNavigatorOptions
 })
 
-const MainNavigator = createBottomTabNavigator({
-    'Tasks': TasksSingleStackScreen,
-    'Add': InputSingleStackScreen
+const dynamicTabs = { //This object could be created on the fly based on the data coming in from the initial fetch request after authentication. Not only would you have control over which tabs are visible in the tab nav but the order in which they should appear. 
+    Tasks: TasksSingleStackScreen,
+    Add: InputSingleStackScreen
+}
+
+const MainNavigator = createBottomTabNavigator({ //The commented out routes are what are supposed to be rendered, but I'm trying an experiment where I'd like to render a custom navigator based on data that comes back from a server dictating the order and number of tabs.
+    ...dynamicTabs
+    // Tasks: TasksSingleStackScreen,
+    // Add: InputSingleStackScreen
 }, {
     defaultNavigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ focused, horizontal, tintColor }) => {

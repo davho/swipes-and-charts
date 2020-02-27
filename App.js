@@ -1,4 +1,6 @@
-//DOCS: https://software-mansion.github.io/react-native-gesture-handler/docs/getting-started.html
+//DOCS: Swipes -- https://software-mansion.github.io/react-native-gesture-handler/docs/getting-started.html
+//DOCS: Charts -- https://medium.com/the-react-native-log/animated-charts-in-react-native-using-d3-and-art-21cd9ccf6c58
+//DOCS: Tables -- https://www.npmjs.com/package/react-native-table-component
 //DO: expo install react-native-gesture-handler
 //NOTE: https://www.youtube.com/watch?v=JxN9W9PRlUQ  and   https://blog.jscrambler.com/creating-swipeable-gestures-with-react-native-gesture-handler/  but need to import { Swipeable } from 'react-native-gesture-handler' not expo
 
