@@ -23,7 +23,7 @@ const InputScreen = () => {
                         <TextInput
                             style={styles.input}
                             value={title}
-                            autoFocus
+                            //autoFocus
                             onChangeText={text => setTitle(text)}
                             onSubmitEditing={() => focusNextField('two')}
                             returnKeyType='next'

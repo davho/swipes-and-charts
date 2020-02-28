@@ -14,11 +14,10 @@ const defaultStackNavigatorOptions = {
     },
     headerTintColor: 'rgb(0,0,0)'
 }
-const defaultTabNavigatorOptions = {
+const defaultTabNavigatorOptions = { //Keyboard is causing a 'jump' when it appears and I believe it has something to do with the tab navigator
     tabBarOptions: {
         activeTintColor: 'rgb(0,0,255)',
         inactiveTintColor: 'rgb(128,128,128)',
-        keyboardHidesTabBar: false, //The keyboard will simply go in front of it when false, which is better otherwise there will be a 'jump' glitch when keyboard appears
     }
 }
 
@@ -35,7 +34,7 @@ const InputSingleStackScreen = createStackNavigator({
     defaultNavigationOptions: defaultStackNavigatorOptions
 })
 
-const dynamicTabs = { //This object could be created on the fly based on the data coming in from the initial fetch request after authentication. Not only would you have control over which tabs are visible in the tab nav but the order in which they should appear. 
+const dynamicTabs = { //This object could be created on the fly based on the data coming in from the initial fetch request after authentication. Not only would you have control over which tabs are visible in the tab nav but the order in which they should appear.
     Tasks: TasksSingleStackScreen,
     Add: InputSingleStackScreen
 }

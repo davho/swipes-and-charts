@@ -23,13 +23,13 @@ const LeftActions = ({progress, dragX, onPress1}) => {
     return (
         <View style={{flexDirection: 'row'}}>
             <TouchableOpacity style={{...styles.leftActionContainers, backgroundColor: 'rgb(0,0,255)'}} onPress={onPress1}>
-                <Animated.View style={[styles.leftActionIcon, {transform: [{scale: scale1}]}]}>
-                    <MaterialCommunityIcons name='calendar-clock' size={32} color='white'/>
+                <Animated.View style={[styles.leftIconContainers, {transform: [{scale: scale1}]}]}>
+                    <MaterialCommunityIcons name='calendar-clock' size={32} color='rgb(255,255,255)'/>
                 </Animated.View>
             </TouchableOpacity>
             <TouchableOpacity style={{...styles.leftActionContainers, backgroundColor: 'rgb(0,128,0)'}} onPress={() => alert('I wish I could close this task: https://stackoverflow.com/questions/60358902/react-native-gesture-handler-swipeable-giving-typeerror-illegal-invocation-wi')}>
-                <Animated.View style={[styles.leftActionIcon, {transform: [{scale: scale2}]}]}>
-                    <AntDesign name='back' size={32} color='white'/>
+                <Animated.View style={[styles.leftIconContainers, {transform: [{scale: scale2}]}]}>
+                    <AntDesign name='back' size={32} color='rgb(255,255,255)'/>
                 </Animated.View>
             </TouchableOpacity>
         </View>
@@ -44,12 +44,20 @@ const RightActions = ({progress, dragX}) => {
         outputRange: [1, 0], //If you don't clamp it it'll go past 1
         extrapolate: 'clamp' //Clamp means lock it to the output range, don't let it exceed those values. If you don't clamp it it'll go past 1.
     })
+    const opacity = dragX.interpolate({
+        inputRange: [-config.screenWidth, -config.screenWidth/3], //It should start animating at -config.screenWidth/3 and end at -config.screenWidth
+        outputRange: [1, 0], //If you don't clamp it it'll go past 1
+        //extrapolate: 'clamp' //Clamp means lock it to the output range, don't let it exceed those values. If you don't clamp it it'll go past 1.
+    })
 
-    return (
-        <View style={styles.rightActionContainer}>
-            <Animated.View style={[styles.rightActionIcon, {transform: [{scale: scale}]}]}>
-                <MaterialCommunityIcons name='clipboard-check-outline' size={32} color='white'/>
-            </Animated.View>
+    return ( //The following solution was the only way to make the color change as one swipes (because you can't animate the backgroundColor style property, and can't "animate" the hue of an hsl value unfortunately). Also, setting a different backgroundColor on a parent View and adjusting opacity of the child Animated.View of a different backgroundColor also affects the opacity of the grandchild icon which can't be locked to 1 because there's no CSS cascading in React Native. So here, the right action container is displaced by a dummy animated background of the same size and then pulled up on top of it using a negative top margin (that was the only way to get the dummy animated View behind the right action container). The right action container then has no backgroundColor, the dummy Animated View has a backgroundColor of 'rgb(255,0,0)' and its opacity animates, which reveals the backgroundColor of the parent wrapper.
+        <View style={styles.parentWrapperRight}>
+            <Animated.View style={{...styles.dummyAnimatedViewRight, opacity: opacity}}></Animated.View>
+            <View style={{...styles.rightActionContainer}}>
+                <Animated.View style={[styles.rightIconContainer, {transform: [{scale: scale}]}]}>
+                    <MaterialCommunityIcons name='clipboard-check-outline' size={32} color='rgb(255,255,255)' style={{opacity: 1}}/>
+                </Animated.View>
+            </View>
         </View>
     )
 }
@@ -110,20 +118,25 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'flex-start',
     },
-    leftActionIcon: {
-        color: 'rgb(255,255,255)',
-        fontWeight: '600',
+    leftIconContainers: {
         paddingHorizontal: 15
+    },
+    parentWrapperRight: {
+        backgroundColor: 'rgb(255,0,0)',
+        width: '100%'
+    },
+    dummyAnimatedViewRight: {
+        width: '100%',
+        height: 70,
+        backgroundColor: 'rgb(128,0,255)'
     },
     rightActionContainer: {
         flex: 1, //Making flex take up the full width automatically makes the swipe gesture complete at > 50% when rightThreshold is at default (which is half the panel's width). Without making it take up the full width it will never complete.
-        backgroundColor: 'rgb(255,0,0)',
+        marginTop: -70,
         justifyContent: 'center',
         alignItems: 'flex-end'
     },
-    rightActionIcon: {
-        color: 'rgb(0,0,0)',
-        fontWeight: '300',
+    rightIconContainer: {
         paddingHorizontal: 20
     }
 })
