@@ -1,11 +1,15 @@
+//Note: The only way to dynamically load a different tab navigator based on the 3 account types (Admin, Client and Public) is to have 3 different AppNav files that can be chosen in AppNavContainer based on the redux state of accountType
+
 import React from 'react'
-import { createAppContainer } from 'react-navigation'
+import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs' //https://reactnavigation.org/docs/en/bottom-tab-navigator.html
 
+import { useSelector } from 'react-redux'
+
 import { MaterialCommunityIcons } from 'react-native-vector-icons'
 
-import { TasksScreen, InputScreen } from '../screens'
+import { TasksScreen, InputScreen, AuthScreen, DummyAccountTypeScreen } from '../screens'
 
 
 const defaultStackNavigatorOptions = {
@@ -14,61 +18,104 @@ const defaultStackNavigatorOptions = {
     },
     headerTintColor: 'rgb(0,0,0)'
 }
-const defaultTabNavigatorOptions = { //Keyboard is causing a 'jump' when it appears and I believe it has something to do with the tab navigator
-    tabBarOptions: {
-        activeTintColor: 'rgb(0,0,255)',
-        inactiveTintColor: 'rgb(128,128,128)',
-    }
+
+const defaultTabNavigatorOptions = ({ navigation }) => ({
+
+    tabBarIcon: ({ focused, horizontal, tintColor }) => {
+
+        let iconName
+        let paddingTop
+
+        const { routeName } = navigation.state
+
+        if (routeName === 'Tasks') {
+            iconName = focused ? 'clipboard-text-outline' : 'clipboard-outline'
+            paddingTop = focused ? 2 : 3
+        } else if (routeName === 'Add') {
+            iconName = focused ? 'pencil-circle' : 'pencil-circle-outline'
+            paddingTop = 2
+        } else {
+            iconName = focused ? 'database-check' : 'database'
+            paddingTop = 2
+        }
+    return <MaterialCommunityIcons style={{paddingTop: paddingTop}} name={iconName} size={32} color={tintColor} />
+  },
+})
+
+const tabBarOptions = {
+    activeTintColor:'rgb(255,255,255)',
+    inactiveTintColor: 'rgb(192,192,192)',
+    activeBackgroundColor: 'rgb(200,200,255)',
+    inactiveBackgroundColor: 'rgb(255,200,200)'
 }
 
 
-const TasksSingleStackScreen = createStackNavigator({
+
+
+
+const TasksSingleStackNav = createStackNavigator({
     Tasks: TasksScreen
 }, {
     defaultNavigationOptions: defaultStackNavigatorOptions
 })
 
-const InputSingleStackScreen = createStackNavigator({
+const InputSingleStackNav = createStackNavigator({
     'Add Task': InputScreen
 }, {
     defaultNavigationOptions: defaultStackNavigatorOptions
 })
 
-const dynamicTabs = { //This object could be created on the fly based on the data coming in from the initial fetch request after authentication. Not only would you have control over which tabs are visible in the tab nav but the order in which they should appear.
-    Tasks: TasksSingleStackScreen,
-    Add: InputSingleStackScreen
-}
-
-const MainNavigator = createBottomTabNavigator({ //The commented out routes are what are supposed to be rendered, but I'm trying an experiment where I'd like to render a custom navigator based on data that comes back from a server dictating the order and number of tabs.
-    ...dynamicTabs
-    // Tasks: TasksSingleStackScreen,
-    // Add: InputSingleStackScreen
+const DummySingleStackNav = createStackNavigator({
+    'Dummy Account Type Screen Example': DummyAccountTypeScreen
 }, {
-    defaultNavigationOptions: ({ navigation }) => ({
-        tabBarIcon: ({ focused, horizontal, tintColor }) => {
-
-            let iconName
-            let paddingTop
-
-            const { routeName } = navigation.state
-
-            if (routeName === 'Tasks') {
-                iconName = focused ? 'clipboard-text-outline' : 'clipboard-outline'
-                paddingTop = focused ? 2 : 3
-            } else if (routeName === 'Add') {
-                iconName = focused ? 'pencil-circle' : 'pencil-circle-outline'
-                paddingTop = 2
-            }
-        return <MaterialCommunityIcons style={{paddingTop: paddingTop}} name={iconName} size={32} color={tintColor} />
-      },
-    }),
-
-    tabBarOptions: {
-        activeTintColor:'rgb(255,255,255)',
-        inactiveTintColor: 'rgb(192,192,192)',
-        activeBackgroundColor: 'rgb(200,200,255)',
-        inactiveBackgroundColor: 'rgb(255,200,200)'
-    },
+    defaultNavigationOptions: defaultStackNavigatorOptions
 })
 
-export default createAppContainer(MainNavigator)
+
+//The 3 different bottom tab navigators below correspond to the 3 account types. You will choose one account type in AuthScreen.js, which updates the account type redux is then used in AppNavContainer to choose which bottom tab navigator to render. This simulates data coming in from a server that specifies which account type you have based on your login credentials.
+
+const BottomTabsNavAdmin = createBottomTabNavigator({
+    'Admin (example)': DummySingleStackNav,
+    'Another Admin (example)': DummySingleStackNav,
+    'Yet another Admin (example)': DummySingleStackNav,
+    Tasks: TasksSingleStackNav,
+    Add: InputSingleStackNav
+
+}, {
+    defaultNavigationOptions: defaultTabNavigatorOptions,
+    tabBarOptions: tabBarOptions
+})
+
+const BottomTabsNavClient = createBottomTabNavigator({
+    'Client (example)': DummySingleStackNav,
+    'Another Client (example)': DummySingleStackNav,
+    Tasks: TasksSingleStackNav,
+    Add: InputSingleStackNav
+
+}, {
+    defaultNavigationOptions: defaultTabNavigatorOptions,
+    tabBarOptions: tabBarOptions
+})
+
+const BottomTabsNavPublic = createBottomTabNavigator({
+    'Public (example)': DummySingleStackNav,
+    Tasks: TasksSingleStackNav,
+    Add: InputSingleStackNav
+
+}, {
+    defaultNavigationOptions: defaultTabNavigatorOptions,
+    tabBarOptions: tabBarOptions
+})
+
+
+
+
+const AppNav = createAppContainer(createSwitchNavigator({ //After Auth, depending on what account type is chosen, the corresponding bottom tab navigator is loaded
+    Auth: AuthScreen,
+    AppAdmin: BottomTabsNavAdmin,
+    AppClient: BottomTabsNavClient,
+    AppPublic: BottomTabsNavPublic
+}))
+
+
+export default AppNav

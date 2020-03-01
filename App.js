@@ -10,15 +10,19 @@
 
 import React from 'react'
 
+import { createAppContainer, createSwitchNavigator } from 'react-navigation'
+
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 
 import { enableScreens } from 'react-native-screens' //Method to call anywhere in App.js to make navigation more performant
+enableScreens()
 
 import tasksReducer from './src/redux/tasksReducer'
+import loginReducer from './src/redux/loginReducer'
 
 //import TasksScreen from './src/screens/TasksScreen'
-import AppNav from './src/navigation/AppNav'
+import AppNavContainer from './src/navigation/AppNavContainer'
 
 /* EXPLANATION OF WHAT'S GOING ON WITH REDUX:
 1) import { createStore, combineReducers } from 'redux' and { Provider } from 'react-redux'
@@ -29,18 +33,21 @@ import AppNav from './src/navigation/AppNav'
 */
 
 const rootReducer = combineReducers({
-    tasksReducer: tasksReducer
+    tasksReducer: tasksReducer,
+    loginReducer: loginReducer
 })
 
 const store = createStore(rootReducer)
 
-enableScreens()
+
+
+
 
 const App = () => {
 
     return (
         <Provider store={store}>
-            <AppNav/>
+            <AppNavContainer/>
         </Provider>
     )
 }
