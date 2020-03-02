@@ -1,4 +1,4 @@
-import MYDUMMYTASKS from '../data/dummy-data'
+import MYDUMMYTASKS from '../data/dummy-task-data'
 import { REMOVE_TASK } from './tasksActions'
 
 const initialState = {

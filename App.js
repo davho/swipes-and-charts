@@ -1,6 +1,7 @@
 //DOCS: Swipes -- https://software-mansion.github.io/react-native-gesture-handler/docs/getting-started.html
-//DOCS: Charts -- https://medium.com/the-react-native-log/animated-charts-in-react-native-using-d3-and-art-21cd9ccf6c58
+//DOCS: Charts -- https://www.instamobile.io/react-native-tutorials/react-native-charts  and very importantly  https://github.com/indiespirit/react-native-chart-kit-example   ( might also want to read https://medium.com/the-react-native-log/animated-charts-in-react-native-using-d3-and-art-21cd9ccf6c58 )
 //DOCS: Tables -- https://www.npmjs.com/package/react-native-table-component
+
 //DO: expo install react-native-gesture-handler
 //NOTE: https://www.youtube.com/watch?v=JxN9W9PRlUQ  and   https://blog.jscrambler.com/creating-swipeable-gestures-with-react-native-gesture-handler/  but need to import { Swipeable } from 'react-native-gesture-handler' not expo
 
@@ -8,7 +9,14 @@
 
 //DO: expo install react-navigation react-navigation-drawer react-navigation-tabs react-navigation-stack react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
 
+//DO: npm install --save react-native-chart-kit
+//NOTE: for ChartsScreenExample.js you need react-native-scrollable-tab-view but it's just a view type that allows you to render many swipe-rightable screens within the same component. I don't use it in my ChartsScreen, which is my simplified functional component refactoring of ChartsScreenExample.
+
+//DO: expo install react-native-svg
+
 import React from 'react'
+
+import { StatusBar } from 'react-native'
 
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 
@@ -47,6 +55,7 @@ const App = () => {
 
     return (
         <Provider store={store}>
+            <StatusBar barStyle='dark-content'/>
             <AppNavContainer/>
         </Provider>
     )

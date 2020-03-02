@@ -16,7 +16,7 @@ const TasksScreen = () => {
 
     return (
             <SafeAreaView style={styles.screenContainer}>
-                <StatusBar barStyle='dark-content'/>
+
                 <FlatList
                     style={styles.tasksContainer}
                     data={incompleteTasks}
