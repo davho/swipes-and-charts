@@ -1,4 +1,4 @@
-//DOCS: Swipes -- https://software-mansion.github.io/react-native-gesture-handler/docs/getting-started.html
+//DOCS: Swipes -- https://software-mansion.github.io/react-native-gesture-handler/docs/getting-started.html   https://blog.jscrambler.com/creating-swipeable-gestures-with-react-native-gesture-handler/   https://github.com/JscramblerBlog/swipeGesturesDemo/blob/master/App.js
 //DOCS: Charts -- https://www.instamobile.io/react-native-tutorials/react-native-charts  and very importantly  https://github.com/indiespirit/react-native-chart-kit-example   ( might also want to read https://medium.com/the-react-native-log/animated-charts-in-react-native-using-d3-and-art-21cd9ccf6c58 )
 //DOCS: Tables -- https://www.npmjs.com/package/react-native-table-component
 
