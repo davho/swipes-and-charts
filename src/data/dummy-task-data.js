@@ -126,6 +126,56 @@ const MYDUMMYTASKS = [
         '25',
         'Task twenty-five',
         false
+    ),
+    new MyDummyTask (
+        '26',
+        'Task twenty-six',
+        false
+    ),
+    new MyDummyTask (
+        '27',
+        'Task twenty-seven',
+        false
+    ),
+    new MyDummyTask (
+        '28',
+        'Task twenty-eight',
+        false
+    ),
+    new MyDummyTask (
+        '29',
+        'Task twenty-nine',
+        false
+    ),
+    new MyDummyTask (
+        '30',
+        'Task thirty',
+        false
+    ),
+    new MyDummyTask (
+        '31',
+        'Task thirty-one',
+        false
+    ),
+    new MyDummyTask (
+        '32',
+        'Task thirty-two',
+        false
+    ),
+    new MyDummyTask (
+        '33',
+        'Task thirty-three',
+        false
+    ),
+    new MyDummyTask (
+        '34',
+        'Task thirty-four',
+        false
+    ),
+    new MyDummyTask (
+        '35',
+        'Task thirty-five',
+        false
     )
 ]
 

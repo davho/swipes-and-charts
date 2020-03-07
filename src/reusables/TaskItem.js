@@ -8,30 +8,39 @@ import config from '../config'
 const LeftActions = ({progress, dragX, onPress1}) => {
     //progress - is how far across the entire swipeable area the swipe action taken place
     //dragX - is independent of where the user started dragging
-    const scale1 = dragX.interpolate({
-        inputRange: [0, 60],
+    const scaleIcon1 = dragX.interpolate({
+        inputRange: [30, 60],
         outputRange: [0, 1], //If you don't clamp it it'll go past 1
         extrapolate: 'clamp' //Clamp means lock it to the output range, don't let it exceed those values. If you don't clamp it it'll go past 1.
     })
 
-    const scale2 = dragX.interpolate({
-        inputRange: [60, 120],
+    const scaleIcon2 = dragX.interpolate({
+        inputRange: [90, 120],
         outputRange: [0, 1], //If you don't clamp it it'll go past 1
         extrapolate: 'clamp' //Clamp means lock it to the output range, don't let it exceed those values. If you don't clamp it it'll go past 1.
+    })
+
+    const draggableDummyTranslateX = dragX.interpolate({
+        inputRange: [0, config.screenWidth],
+        outputRange: [0, config.screenWidth]
     })
 
     return (
         <View style={{flexDirection: 'row'}}>
+
             <TouchableOpacity style={{...styles.leftActionContainers, backgroundColor: 'rgb(0,0,255)'}} onPress={onPress1}>
-                <Animated.View style={[styles.leftIconContainers, {transform: [{scale: scale1}]}]}>
+                <Animated.View style={[styles.leftIconContainers, {transform: [{scale: scaleIcon1}]}]}>
                     <MaterialCommunityIcons name='calendar-clock' size={32} color='rgb(255,255,255)'/>
                 </Animated.View>
             </TouchableOpacity>
             <TouchableOpacity style={{...styles.leftActionContainers, backgroundColor: 'rgb(0,128,0)'}} onPress={() => alert('I wish I could close this task: https://stackoverflow.com/questions/60358902/react-native-gesture-handler-swipeable-giving-typeerror-illegal-invocation-wi')}>
-                <Animated.View style={[styles.leftIconContainers, {transform: [{scale: scale2}]}]}>
+                <Animated.View style={[styles.leftIconContainers, {transform: [{scale: scaleIcon2}]}]}>
                     <AntDesign name='back' size={32} color='rgb(255,255,255)'/>
                 </Animated.View>
             </TouchableOpacity>
+
+            <Animated.View style={[styles.draggableDummyLeft, {transform: [{translateX: draggableDummyTranslateX}]}]}></Animated.View>
+
         </View>
     )
 }
@@ -39,26 +48,45 @@ const LeftActions = ({progress, dragX, onPress1}) => {
 const RightActions = ({progress, dragX}) => {
     //progress - is how far across the entire swipeable area the swipe action has taken place
     //dragX - is independent of where the user started dragging
-    const scale = dragX.interpolate({
-        inputRange: [-60, 0],
+    const iconScale = dragX.interpolate({
+        inputRange: [-60, -30],
         outputRange: [1, 0], //If you don't clamp it it'll go past 1
         extrapolate: 'clamp' //Clamp means lock it to the output range, don't let it exceed those values. If you don't clamp it it'll go past 1.
     })
-    const opacity = dragX.interpolate({
+    const dummyAnimatedViewOpacity = dragX.interpolate({
         inputRange: [-config.screenWidth, -config.screenWidth/3], //It should start animating at -config.screenWidth/3 and end at -config.screenWidth
         outputRange: [1, 0], //If you don't clamp it it'll go past 1
         //extrapolate: 'clamp' //Clamp means lock it to the output range, don't let it exceed those values. If you don't clamp it it'll go past 1.
     })
 
+    const draggableDummyTranslateX = dragX.interpolate({
+        inputRange: [-config.screenWidth, 0],
+        outputRange: [-config.screenWidth, 0]
+    })
+    const draggableDummyOpacity = dragX.interpolate({
+        inputRange: [-config.screenWidth, 0],
+        outputRange: [.3, 1]
+    })
+    const draggableDummyBorderRadius = dragX.interpolate({
+        inputRange: [-config.screenWidth / 2, 0],
+        outputRange: [45, 0]
+    })
+
     return ( //The following solution was the only way to make the color change as one swipes (because you can't animate the backgroundColor style property, and can't "animate" the hue of an hsl value unfortunately). Also, setting a different backgroundColor on a parent View and adjusting opacity of the child Animated.View of a different backgroundColor also affects the opacity of the grandchild icon which can't be locked to 1 because there's no CSS cascading in React Native. So here, the right action container is displaced by a dummy animated background of the same size and then pulled up on top of it using a negative top margin (that was the only way to get the dummy animated View behind the right action container). The right action container then has no backgroundColor, the dummy Animated View has a backgroundColor of 'rgb(255,0,0)' and its opacity animates, which reveals the backgroundColor of the parent wrapper.
+
         <View style={styles.parentWrapperRight}>
-            <Animated.View style={{...styles.dummyAnimatedViewRight, opacity: opacity}}></Animated.View>
+
+            <Animated.View style={{...styles.dummyAnimatedViewRight, opacity: dummyAnimatedViewOpacity}}></Animated.View>
             <View style={{...styles.rightActionContainer}}>
-                <Animated.View style={[styles.rightIconContainer, {transform: [{scale: scale}]}]}>
+                <Animated.View style={[styles.rightIconContainer, {transform: [{scale: iconScale}]}]}>
                     <MaterialCommunityIcons name='clipboard-check-outline' size={32} color='rgb(255,255,255)' style={{opacity: 1}}/>
                 </Animated.View>
             </View>
+
+            <Animated.View style={[styles.draggableDummyRight, {opacity: draggableDummyOpacity, borderRadius: draggableDummyBorderRadius}, {transform: [{translateX: draggableDummyTranslateX}]}]}></Animated.View>
+
         </View>
+
     )
 }
 
@@ -106,7 +134,6 @@ const styles = StyleSheet.create({
         height: 70,
         paddingLeft: 20,
         justifyContent: 'center',
-        backgroundColor: 'rgb(255,255,255)',
         borderColor: 'rgb(192,192,192)',
         borderTopWidth: StyleSheet.hairlineWidth
     },
@@ -129,6 +156,18 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 70,
         backgroundColor: 'rgb(128,0,255)'
+    },
+    draggableDummyRight: {
+        width: '100%',
+        height: 70,
+        marginTop: -70,
+        backgroundColor: 'rgb(255,255,255)'
+    },
+    draggableDummyLeft: {
+        width: 120,
+        marginLeft: -120,
+        height: 70,
+        backgroundColor: 'rgb(255,255,255)'
     },
     rightActionContainer: {
         flex: 1, //Making flex take up the full width automatically makes the swipe gesture complete at > 50% when rightThreshold is at default (which is half the panel's width). Without making it take up the full width it will never complete.
