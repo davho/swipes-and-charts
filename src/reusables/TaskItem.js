@@ -10,13 +10,13 @@ const LeftActions = ({progress, dragX, onPress1}) => {
     //dragX - is independent of where the user started dragging
     const scaleIcon1 = dragX.interpolate({
         inputRange: [30, 60],
-        outputRange: [0, 1], //If you don't clamp it it'll go past 1
+        outputRange: [.1, 1], //If you don't clamp it it'll go past 1.
         extrapolate: 'clamp' //Clamp means lock it to the output range, don't let it exceed those values. If you don't clamp it it'll go past 1.
     })
 
     const scaleIcon2 = dragX.interpolate({
         inputRange: [90, 120],
-        outputRange: [0, 1], //If you don't clamp it it'll go past 1
+        outputRange: [.1, 1], //If you don't clamp it it'll go past 1. Also, technically this should have been [0,1] but that was causing a bug on Android where the icon would appear at full scale (1) and then 'jump' to 0 to begin scaling. Values less than .1 had the same effect but .1 works. For scaleIcon1 it didn't matter, [0,1] worked there, but I just decided to make them the same for consistency.
         extrapolate: 'clamp' //Clamp means lock it to the output range, don't let it exceed those values. If you don't clamp it it'll go past 1.
     })
 
@@ -50,7 +50,7 @@ const RightActions = ({progress, dragX}) => {
     //dragX - is independent of where the user started dragging
     const iconScale = dragX.interpolate({
         inputRange: [-60, -30],
-        outputRange: [1, 0], //If you don't clamp it it'll go past 1
+        outputRange: [1, .1], //If you don't clamp it it'll go past 1. Also, technically this should have been [1,0] but that was causing a bug on Android where the icon at full scale (1) would drag with the component from 0 until -30 and then 'jump' to 0 to begin scaling up to 1. Values less than .1 had the same effect but .1 works.
         extrapolate: 'clamp' //Clamp means lock it to the output range, don't let it exceed those values. If you don't clamp it it'll go past 1.
     })
     const dummyAnimatedViewOpacity = dragX.interpolate({
@@ -146,7 +146,10 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
     },
     leftIconContainers: {
-        paddingHorizontal: 15
+        width: 60,
+        height: 70,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     parentWrapperRight: {
         backgroundColor: 'rgb(255,0,0)',
