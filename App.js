@@ -9,6 +9,9 @@
 
 //DO: expo install react-navigation react-navigation-drawer react-navigation-tabs react-navigation-stack react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
 
+//DO: npm install react-navigation-transitions --save
+//NOTE: https://www.npmjs.com/package/react-navigation-transitions
+
 //DO: npm install --save react-native-chart-kit
 //NOTE: for ChartsScreenExample.js you need react-native-scrollable-tab-view but it's just a view type that allows you to render many swipe-rightable screens within the same component. I don't use it in my ChartsScreen, which is my simplified functional component refactoring of ChartsScreenExample.
 
@@ -28,6 +31,7 @@ enableScreens()
 
 import tasksReducer from './src/redux/tasksReducer'
 import loginReducer from './src/redux/loginReducer'
+import contactsReducer from './src/redux/contactsReducer'
 
 //import TasksScreen from './src/screens/TasksScreen'
 import AppNavContainer from './src/navigation/AppNavContainer'
@@ -42,7 +46,8 @@ import AppNavContainer from './src/navigation/AppNavContainer'
 
 const rootReducer = combineReducers({
     tasksReducer: tasksReducer,
-    loginReducer: loginReducer
+    loginReducer: loginReducer,
+    contactsReducer: contactsReducer
 })
 
 const store = createStore(rootReducer)

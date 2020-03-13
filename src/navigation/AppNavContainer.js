@@ -12,10 +12,12 @@ const AppNavContainer = props => {
 
     useEffect(() => {
         if (accountType !== null) { //If accountType is not null (i.e. it has been set to something in redux)
-            if (accountType === 'admin') { //If it's 'admin', go to the AppAdmin stack in the switch navigator
+            if (accountType === 'a') { //If it's 'a', go to the AppAdmin stack in the switch navigator
                 navRef.current.dispatch(NavigationActions.navigate({routeName: 'AppAdmin'}))
-            } else if (accountType === 'client') { //If it's 'client', go to the AppClient stack in the switch navigator
+            } else if (accountType === 'c') { //If it's 'c', go to the AppClient stack in the switch navigator
                 navRef.current.dispatch(NavigationActions.navigate({routeName: 'AppClient'}))
+            } else if (accountType === 'n') { //If it's 'n', go to the AppNewsContacts stack in the switch navigator
+                navRef.current.dispatch(NavigationActions.navigate({routeName: 'AppNewsContacts'}))
             } else { //If it's anything else, go to the AppPublic stack in the switch navigator
                 navRef.current.dispatch(NavigationActions.navigate({routeName: 'AppPublic'}))
             }

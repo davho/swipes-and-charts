@@ -21,14 +21,14 @@ const AuthScreen = () => {
                         onChangeText={text => setAccountType(text)}
                         autoCapitalize='none'
                         />
-                    <Text style={styles.text}>In the text input field above enter one of the following words: "admin", "client" or "public". Then hit the Choose My Navigator And Enter App button. The app will load with the chosen navigator, demonstrating having received a payload upon login with such info.
+                    <Text style={styles.text}>In the text input field above enter one of the following strings: "admin", "client" or "news profiles". Then hit the Choose My Navigation Structure And Enter App button. The app will load with the chosen navigation structure, demonstrating having received a payload upon login with such info. If none of those strings are entered the app will load a default "public" navigation pattern.
                     </Text>
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => dispatch(loginActions.chooseAccountType(accountType))}
                         activeOpacity={.4}
                         >
-                            <Text>Choose My Navigator And Enter App</Text>
+                            <Text>Choose My Navigation Pattern And Enter App</Text>
                     </TouchableOpacity>
                 </View>
         </KeyboardAvoidingView>

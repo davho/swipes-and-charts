@@ -7,9 +7,9 @@ import { createBottomTabNavigator } from 'react-navigation-tabs' //https://react
 
 import { useSelector } from 'react-redux'
 
-import { MaterialCommunityIcons, MaterialIcons } from 'react-native-vector-icons'
+import { MaterialCommunityIcons, MaterialIcons, AntDesign, FontAwesome } from 'react-native-vector-icons'
 
-import { TasksScreen, InputScreen, AuthScreen, ChartsScreen, DummyAccountTypeScreen } from '../screens'
+import { TasksScreen, InputScreen, AuthScreen, ChartsScreen, DummyAccountTypeScreen, NewsScreen, ContactsScreen } from '../screens'
 
 
 const defaultStackNavigatorOptions = {
@@ -25,6 +25,7 @@ const defaultTabNavigatorOptions = ({ navigation }) => ({
 
         let iconName
         let paddingTop
+        let transform = []
         let IconLib
         let size
 
@@ -45,13 +46,24 @@ const defaultTabNavigatorOptions = ({ navigation }) => ({
             iconName = focused ? 'pie-chart' : 'pie-chart-outlined'
             paddingTop = 0
             size = focused ? 29 : 32
+        } else if (routeName === 'News') {
+            IconLib = FontAwesome
+            iconName = 'newspaper-o'
+            paddingTop = 2
+            size = focused ? 29 : 32
+        } else if (routeName === 'Contacts') {
+            IconLib = AntDesign
+            iconName = 'contacts'
+            transform = [{rotateY: '180deg'}]
+            paddingTop = 2
+            size = focused ? 29 : 32
         } else {
             IconLib = MaterialCommunityIcons
             iconName = focused ? 'database-check' : 'database'
             paddingTop = 2
             size = 32
         }
-    return <IconLib style={{paddingTop: paddingTop}} name={iconName} size={size} color={tintColor} />
+    return <IconLib style={{paddingTop: paddingTop, transform: transform}} name={iconName} size={size} color={tintColor} />
   },
 })
 
@@ -84,12 +96,23 @@ const ChartsSingleStackNav = createStackNavigator({
     defaultNavigationOptions: defaultStackNavigatorOptions
 })
 
+const NewsSingleStackNav = createStackNavigator({
+    News: NewsScreen
+}, {
+    defaultNavigationOptions: defaultStackNavigatorOptions
+})
+
+const ContactsSingleStackNav = createStackNavigator({
+    Contacts: ContactsScreen
+}, {
+    defaultNavigationOptions: defaultStackNavigatorOptions
+})
+
 const DummySingleStackNav = createStackNavigator({
     'Dummy Account Type Screen Example': DummyAccountTypeScreen
 }, {
     defaultNavigationOptions: defaultStackNavigatorOptions
 })
-
 
 //The 3 different bottom tab navigators below correspond to the 3 account types. You will choose one account type in AuthScreen.js, which updates the account type redux is then used in AppNavContainer to choose which bottom tab navigator to render. This simulates data coming in from a server that specifies which account type you have based on your login credentials.
 
@@ -118,6 +141,17 @@ const BottomTabsNavClient = createBottomTabNavigator({
     tabBarOptions: tabBarOptions
 })
 
+const BottomTabsNavNewsContacts = createBottomTabNavigator({
+    Tasks: TasksSingleStackNav,
+    Add: InputSingleStackNav,
+    Charts: ChartsSingleStackNav,
+    News: NewsSingleStackNav,
+    Contacts: ContactsSingleStackNav,
+}, {
+    defaultNavigationOptions: defaultTabNavigatorOptions,
+    tabBarOptions: tabBarOptions
+})
+
 const BottomTabsNavPublic = createBottomTabNavigator({
     'Public (example)': DummySingleStackNav,
     Tasks: TasksSingleStackNav,
@@ -132,12 +166,13 @@ const BottomTabsNavPublic = createBottomTabNavigator({
 
 
 
-const AppNav = createAppContainer(createSwitchNavigator({ //After Auth, depending on what account type is chosen, the corresponding bottom tab navigator is loaded
+const AppNav = createSwitchNavigator({ //After Auth, depending on what account type is chosen, the corresponding bottom tab navigator is loaded
     Auth: AuthScreen,
     AppAdmin: BottomTabsNavAdmin,
     AppClient: BottomTabsNavClient,
+    AppNewsContacts: BottomTabsNavNewsContacts,
     AppPublic: BottomTabsNavPublic
-}))
+})
 
 
-export default AppNav
+export default createAppContainer(AppNav)
