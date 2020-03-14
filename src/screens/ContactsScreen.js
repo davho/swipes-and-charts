@@ -45,12 +45,14 @@ ContactsScreen.navigationOptions = navData => {
     const type = navData.navigation.getParam('type')
     const string = type !== 'Contacts' && type !== undefined ? (type === 'dial' ? `Dialing ${name}...` : `Emailing ${name}...`) : 'Contacts'
     const fontSize = string === 'Contacts' ? 23 : 16
+    const fontFamily = string === 'Contacts' ? 'helvetica-bold' : 'helvetica-regular'
 
     return (
         {
             headerTitle: string,
             headerTitleStyle: {
-              fontSize: fontSize,
+                fontFamily: fontFamily,
+                fontSize: fontSize,
             },
         }
     )
