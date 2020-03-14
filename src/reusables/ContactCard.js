@@ -1,5 +1,7 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet, TouchableOpacity, Linking, Platform } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity, Platform } from 'react-native'
+
+import * as WebBrowser from 'expo-web-browser'
 
 import { Ionicons, MaterialCommunityIcons, Foundation, FontAwesome } from '@expo/vector-icons'
 
@@ -9,7 +11,7 @@ import config from '../config'
 const ContactCard = props => {
 
     const dialOrEmail = type => {
-        
+
         props.getName(props.contactInfo.name, type)
 
         setTimeout(() => {
@@ -26,7 +28,7 @@ const ContactCard = props => {
         <TouchableOpacity
             style={{...styles.cardContainer, marginTop: props.isFirst ? 16 : null, marginBottom: props.isLast ? 16 : null}}
             activeOpacity={.5}
-            onPress={() => Linking.openURL(props.contactInfo.profileUrl)}
+            onPress={() => WebBrowser.openBrowserAsync(props.contactInfo.profileUrl)}
             >
 
             <View style={styles.column1}>
