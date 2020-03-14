@@ -1,6 +1,7 @@
 //Note: The only way to dynamically load a different tab navigator based on the 3 account types (Admin, Client and Public) is to have 3 different AppNav files that can be chosen in AppNavContainer based on the redux state of accountType
 
 import React from 'react'
+import { Platform } from 'react-native'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs' //https://reactnavigation.org/docs/en/bottom-tab-navigator.html
@@ -14,9 +15,13 @@ import { TasksScreen, InputScreen, AuthScreen, ChartsScreen, DummyAccountTypeScr
 
 const defaultStackNavigatorOptions = {
     headerStyle: {
-        backgroundColor: 'rgb(200,255,255)',
+        backgroundColor: Platform.OS === 'ios' ? 'rgb(255,255,255)' : 'rgb(7,26,64)',
     },
-    headerTintColor: 'rgb(0,0,0)'
+    headerTintColor: Platform.OS === 'ios' ? 'rgb(7,26,64)' : 'rgb(255,255,255)',
+    headerTitleStyle: {
+      fontFamily: 'helvetica-bold',
+      fontSize: 23
+    },
 }
 
 const defaultTabNavigatorOptions = ({ navigation }) => ({

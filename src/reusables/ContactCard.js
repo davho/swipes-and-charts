@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet, TouchableOpacity, Linking } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity, Linking, Platform } from 'react-native'
 
 import { Ionicons, MaterialCommunityIcons, Foundation, FontAwesome } from '@expo/vector-icons'
 
@@ -7,6 +7,20 @@ import utils from '../utils'
 import config from '../config'
 
 const ContactCard = props => {
+
+    const dialOrEmail = type => {
+        
+        props.getName(props.contactInfo.name, type)
+
+        setTimeout(() => {
+            if (type === 'dial') {
+                utils.callNumber(props.contactInfo.phone)
+            } else {
+                utils.sendEmail(props.contactInfo.email.toLowerCase())
+            }
+            props.getName('Contacts')
+        }, 1500)
+    }
 
     return (
         <TouchableOpacity
@@ -33,13 +47,13 @@ const ContactCard = props => {
                     <Text style={styles.phoneEmailViewProfileText}>View Profile</Text>
                 </View>
                 { props.contactInfo.phone !== '' ?
-                    <TouchableOpacity style={styles.phoneEmailViewProfileContainer} hitSlop={utils.slopQuick(15)} onPress={() => utils.callNumber(props.contactInfo.phone)}>
+                    <TouchableOpacity style={styles.phoneEmailViewProfileContainer} hitSlop={utils.slopQuick(15)} onPress={() => dialOrEmail('dial')}>
                         <FontAwesome style={styles.iconStyle} name='phone' color='rgb(255,255,255)' size={22}/>
                         <Text style={styles.phoneEmailViewProfileText}>{props.contactInfo.phone}</Text>
                     </TouchableOpacity>
                     : null}
                 { props.contactInfo.email !== '' ?
-                    <TouchableOpacity style={styles.phoneEmailViewProfileContainer} hitSlop={utils.slopQuick(15)} onPress={() => utils.sendEmail(props.contactInfo.email.toLowerCase())}>
+                    <TouchableOpacity style={styles.phoneEmailViewProfileContainer} hitSlop={utils.slopQuick(15)} onPress={() => dialOrEmail('email')}>
                         <Ionicons style={styles.iconStyle} name='ios-mail' color='rgb(255,255,255)' size={22}/>
                         <Text style={styles.phoneEmailViewProfileText}>{utils.breakEmailBeforeAt(props.contactInfo.email.toLowerCase())}</Text>
                     </TouchableOpacity>
@@ -58,7 +72,12 @@ const styles = StyleSheet.create({
         marginVertical: 7,
         marginHorizontal: 14,
         borderRadius: 10,
-        padding: 12
+        padding: 12,
+        //elevation: 5, //Elevation is specific to Android and not having the desired effect
+        shadowColor: 'rgb(7,26,64)',
+        shadowOpacity: .5,
+        shadowOffset: {width: 0, height: 0}, //Must specify the shadowOffset as {width: 0, height: 0} because, for some reason, it defaults to {width: 0, height: -3}
+        shadowRadius: 3
     },
     column1: {
         alignItems: 'center'
@@ -78,7 +97,7 @@ const styles = StyleSheet.create({
     },
     flag: {
         fontSize: config.screenWidth / 8,
-        opacity: .8,
+        opacity: .7,
     },
     column2: {
         paddingLeft: 12,
@@ -108,7 +127,7 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     iconStyle: {
-        marginTop: -2,
+        marginTop: Platform.OS === 'ios' ? -2 : 2,
         marginRight: 10
     }
 })

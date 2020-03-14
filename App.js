@@ -73,7 +73,7 @@ const App = () => {
 
     return (
         <Provider store={store}>
-            <StatusBar barStyle='dark-content'/>
+            <StatusBar barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}/>
             <AppNavContainer/>
         </Provider>
     )
