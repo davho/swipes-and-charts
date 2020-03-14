@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Text, View, SafeAreaView, StyleSheet, StatusBar, Platform, FlatList } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import TaskItem from '../reusables/TaskItem'
+
+import { TaskItem } from '../reusables'
 
 import * as tasksActions from '../redux/tasksActions'
 

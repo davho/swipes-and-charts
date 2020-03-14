@@ -1,9 +1,9 @@
+import { Linking, Alert, Platform } from 'react-native'
+
 export default {
-    
+
     nationalFlag: country => {
-
         switch (country) {
-
             case "Ascension Island": return '🇦🇨'
             case "Andorra": return '🇦🇩'
             case "United Arab Emirates": return '🇦🇪'
@@ -262,10 +262,53 @@ export default {
             case "South Africa": return '🇿🇦'
             case "Zambia": return '🇿🇲'
             case "Zimbabwe": return '🇿🇼'
-
         }
+        return country //return country argument as a default just in case it doesn't match any of the cases for some reason
+    },
 
-       return country //return country argument as a default just in case it doesn't match any of the cases for some reason
 
+
+    breakEmailBeforeAt: emailAddress => {
+        let newEmailAddress = emailAddress.split('@')
+        return `${newEmailAddress[0]}\n@${newEmailAddress[1]}`
+    },
+
+
+
+    callNumber: phone => {
+        let phoneNumber = phone
+        if (Platform.OS !== 'android') {
+            phoneNumber = `telprompt:${phone}`
+        }
+        else {
+            phoneNumber = `tel:${phone}`
+        }
+        Linking.canOpenURL(phoneNumber)
+            .then(supported => {
+                if (!supported) {
+                    Alert.alert('Phone number is not available')
+                } else {
+                    return Linking.openURL(phoneNumber)
+                }
+            })
+            .catch(err => console.log(err))
+    },
+
+
+
+    sendEmail: email => {
+        return Linking.openURL(`mailto:${email}`)
+    },
+
+
+
+    slopQuick: slopValue => {
+        return {
+            top: slopValue,
+            bottom: slopValue,
+            right: slopValue,
+            left: slopValue
+        }
     }
+
 }

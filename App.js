@@ -17,9 +17,11 @@
 
 //DO: expo install react-native-svg
 
-import React from 'react'
-
+import React, { useState } from 'react'
 import { StatusBar } from 'react-native'
+
+import { AppLoading } from 'expo'
+import * as Font from 'expo-font'
 
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 
@@ -33,7 +35,6 @@ import tasksReducer from './src/redux/tasksReducer'
 import loginReducer from './src/redux/loginReducer'
 import contactsReducer from './src/redux/contactsReducer'
 
-//import TasksScreen from './src/screens/TasksScreen'
 import AppNavContainer from './src/navigation/AppNavContainer'
 
 /* EXPLANATION OF WHAT'S GOING ON WITH REDUX:
@@ -49,14 +50,26 @@ const rootReducer = combineReducers({
     loginReducer: loginReducer,
     contactsReducer: contactsReducer
 })
-
 const store = createStore(rootReducer)
 
 
 
+const fetchFonts = () => {
+    return Font.loadAsync({
+        'helvetica-regular': require('./src/assets/fonts/Helvetica-Regular.ttf'),
+        'helvetica-bold': require('./src/assets/fonts/Helvetica-Bold.ttf')
+    })
+}
+
 
 
 const App = () => {
+
+    const [fontLoaded, setFontLoaded] = useState(false)
+
+    if (!fontLoaded) {
+        return <AppLoading startAsync={() => fetchFonts()} onFinish={() => setFontLoaded(true)}/>
+    }
 
     return (
         <Provider store={store}>
