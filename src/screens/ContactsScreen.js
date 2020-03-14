@@ -44,7 +44,7 @@ ContactsScreen.navigationOptions = navData => {
     const name = navData.navigation.getParam('name')
     const type = navData.navigation.getParam('type')
     const string = type !== 'Contacts' && type !== undefined ? (type === 'dial' ? `Dialing ${name}...` : `Emailing ${name}...`) : 'Contacts'
-    const fontSize = string === 'Contacts' ? 23 : 16
+    const fontSize = string === 'Contacts' ? 23 : 18
     const fontFamily = string === 'Contacts' ? 'helvetica-bold' : 'helvetica-regular'
 
     return (

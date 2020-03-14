@@ -49,19 +49,19 @@ const defaultTabNavigatorOptions = ({ navigation }) => ({
         } else if (routeName === 'Charts') {
             IconLib = MaterialIcons
             iconName = focused ? 'pie-chart' : 'pie-chart-outlined'
-            paddingTop = 0
+            paddingTop = 1
             size = focused ? 29 : 32
         } else if (routeName === 'News') {
             IconLib = FontAwesome
             iconName = 'newspaper-o'
             paddingTop = 2
-            size = focused ? 29 : 32
+            size = 32
         } else if (routeName === 'Contacts') {
             IconLib = AntDesign
             iconName = 'contacts'
             transform = [{rotateY: '180deg'}]
             paddingTop = 2
-            size = focused ? 29 : 32
+            size = 32
         } else {
             IconLib = MaterialCommunityIcons
             iconName = focused ? 'database-check' : 'database'
@@ -73,10 +73,10 @@ const defaultTabNavigatorOptions = ({ navigation }) => ({
 })
 
 const tabBarOptions = {
-    activeTintColor:'rgb(255,255,255)',
-    inactiveTintColor: 'rgb(192,192,192)',
-    activeBackgroundColor: 'rgb(200,200,255)',
-    inactiveBackgroundColor: 'rgb(255,200,200)'
+    activeTintColor: Platform.OS === 'ios' ? 'rgb(7,26,64)' : 'rgb(7,26,64)',
+    inactiveTintColor:  Platform.OS === 'ios' ? 'rgba(89,147,91,.8)' : 'rgb(255,255,255)',
+    activeBackgroundColor: 'rgba(89,147,91,.8)',
+    inactiveBackgroundColor: Platform.OS === 'ios' ? 'rgb(255,255,255)' : 'rgb(7,26,64)'
 }
 
 
