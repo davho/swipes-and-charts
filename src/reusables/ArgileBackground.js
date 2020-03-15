@@ -3,14 +3,14 @@ import { View, StyleSheet} from 'react-native'
 
 import { LinearGradient } from 'expo-linear-gradient'
 
-const ArgileBackground = () => {
+const ArgileBackground = props => {
 
     return (
         <View style={styles.backgroundContainer}>
-            <LinearGradient colors={['rgba(89,147,91,.6)', 'transparent']} style={styles.backgroundDiamondTopLeft}></LinearGradient>
-            <LinearGradient colors={['rgba(89,147,91,.6)', 'transparent']} style={styles.backgroundDiamondTopRight}></LinearGradient>
-            <LinearGradient colors={['rgba(89,147,91,.6)', 'transparent']} style={styles.backgroundDiamondBottomLeft}></LinearGradient>
-            <LinearGradient colors={['rgba(89,147,91,.6)', 'transparent']} style={styles.backgroundDiamondBottomRight}></LinearGradient>
+            <LinearGradient colors={[props.color, 'transparent']} style={styles.backgroundDiamondTopLeft}></LinearGradient>
+            <LinearGradient colors={[props.color, 'transparent']} style={styles.backgroundDiamondTopRight}></LinearGradient>
+            <LinearGradient colors={[props.color, 'transparent']} style={styles.backgroundDiamondBottomLeft}></LinearGradient>
+            <LinearGradient colors={[props.color, 'transparent']} style={styles.backgroundDiamondBottomRight}></LinearGradient>
         </View>
     )
 }

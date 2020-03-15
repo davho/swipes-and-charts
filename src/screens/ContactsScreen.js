@@ -22,7 +22,7 @@ const ContactsScreen = props => {
     return (
             <LinearGradient style={styles.screenContainer} colors={['rgba(89,147,91,.35)', 'transparent', 'transparent', 'transparent', 'rgba(89,147,91,.35)']}>
 
-                <ArgileBackground/>
+                <ArgileBackground color={'rgba(89,147,91,.6)'}/>
                 <FlatList
                     data={contacts}
                     keyExtractor={item => item.id}

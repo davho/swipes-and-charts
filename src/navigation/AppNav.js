@@ -68,15 +68,15 @@ const defaultTabNavigatorOptions = ({ navigation }) => ({
             paddingTop = 2
             size = 32
         }
-    return <IconLib style={{paddingTop: paddingTop, transform: transform}} name={iconName} size={size} color={tintColor} />
-  },
+        return <IconLib style={{paddingTop: paddingTop, transform: transform}} name={iconName} size={size} color={tintColor} />
+    },
 
-  tabBarLabel: ({ focused, horizontal, tintColor }) => {
+    tabBarLabel: ({ focused, horizontal, tintColor }) => {
 
-      const { routeName } = navigation.state
+        const { routeName } = navigation.state
 
-      return <Text style={{fontWeight: focused ? 'bold' : null, fontStyle: !focused ? 'italic' : null}}>{focused ? `|${routeName}|` : routeName}</Text>
-  }
+        return <Text style={{fontWeight: focused ? 'bold' : null, fontStyle: !focused ? 'italic' : null, color: tintColor}}>{focused ? `|${routeName}|` : routeName}</Text>
+    }
 
 })
 
