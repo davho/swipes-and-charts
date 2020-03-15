@@ -22,6 +22,11 @@ const TasksScreen = () => {
                     style={styles.tasksContainer}
                     data={incompleteTasks}
                     keyExtractor={item => item.someId}
+                    initialNumToRender={12}
+                    onEndReached={({ distanceFromEnd }) => {
+                        console.log(distanceFromEnd) //Might do something with this data
+                    }}
+                    onEndReachedThreshold={.8} //Not totally necessary right now might do something with this data
                     renderItem={itemData =>
                         <TaskItem
                             text={itemData.item.description}

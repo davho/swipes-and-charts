@@ -26,6 +26,11 @@ const ContactsScreen = props => {
                 <FlatList
                     data={contacts}
                     keyExtractor={item => item.id}
+                    initialNumToRender={4}
+                    onEndReached={({ distanceFromEnd }) => {
+                        console.log(distanceFromEnd) //Might do something with this data
+                    }}
+                    onEndReachedThreshold={.8} //Not totally necessary right now might do something with this data
                     renderItem={itemData =>
                         <ContactCard
                             contactInfo={itemData.item}
