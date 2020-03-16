@@ -75,7 +75,8 @@ const defaultTabNavigatorOptions = ({ navigation }) => ({
 
         const { routeName } = navigation.state
 
-        return <Text style={{fontWeight: focused ? 'bold' : null, fontStyle: !focused ? 'italic' : null, color: tintColor}}>{focused ? `|${routeName}|` : routeName}</Text>
+        //In the below case of returning a <Text> component with the tabBarName so that there's styling flexibility among other things, alignSelf: 'center' needs to be there only for Android's sake
+        return <Text style={{alignSelf: 'center', fontWeight: focused ? 'bold' : null, fontStyle: !focused ? 'italic' : null, color: tintColor}}>{focused ? `|${routeName}|` : routeName}</Text>
     }
 
 })
