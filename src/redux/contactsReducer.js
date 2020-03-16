@@ -1,8 +1,8 @@
-import MYDUMMYCONTACTSDATA from '../data/dummy-contacts-data'
+import MYDUMMYCONTACTS from '../data/dummy-contacts-data'
 import { GET_CONTACTS } from './contactsActions'
 
 const initialState = {
-    contacts: MYDUMMYCONTACTSDATA
+    contacts: MYDUMMYCONTACTS
 }
 
 const contactsReducer = (state = initialState, action) => {

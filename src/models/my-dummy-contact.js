@@ -1,4 +1,4 @@
-class MyDummyContactsData {
+class MyDummyContact {
     constructor (id, picUrl, country, name, title, email, phone, profileUrl) {
         this.id = id
         this.picUrl = picUrl
@@ -11,4 +11,4 @@ class MyDummyContactsData {
     }
 }
 
-export default MyDummyContactsData
+export default MyDummyContact
