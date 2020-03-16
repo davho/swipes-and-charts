@@ -10,18 +10,21 @@ import config from '../config'
 
 const ContactCard = props => {
 
-    const dialOrEmail = type => {
+    const dialOrEmail = type => { //If type is 'Dialing' utils.callNumber is launched as well as utils.spellInHeader, then after 5000ms props.getName sets the header back to 'Contacts'. If type is 'Emailing' utils.spellInHeader is launched and has to finish running before utils.sendEmail runs immediately afterward by being broken out into a setTimeout along with props.getName setting the header back to 'Contacts'.
 
-        props.getName(props.contactInfo.name, type)
+        let customHeaderString = `${type} ${props.contactInfo.name}...`
 
-        setTimeout(() => {
-            if (type === 'dial') {
-                utils.callNumber(props.contactInfo.phone)
-            } else {
+        if (type === 'Dialing') {
+            utils.callNumber(props.contactInfo.phone)
+            utils.spellInHeader(props.getName, customHeaderString, type)
+            setTimeout(() => props.getName('Contacts'), 5000)
+        } else if (type === 'Emailing') {
+            utils.spellInHeader(props.getName, customHeaderString, type)
+            setTimeout(() => {
                 utils.sendEmail(props.contactInfo.email.toLowerCase())
-            }
-            props.getName('Contacts')
-        }, 1500)
+                props.getName('Contacts')
+            }, 0)
+        }
     }
 
     return (
@@ -49,13 +52,13 @@ const ContactCard = props => {
                     <Text style={styles.phoneEmailViewProfileText}>View Profile</Text>
                 </View>
                 { props.contactInfo.phone !== '' ?
-                    <TouchableOpacity style={styles.phoneEmailViewProfileContainer} hitSlop={utils.slopQuick(15)} onPress={() => dialOrEmail('dial')}>
+                    <TouchableOpacity style={styles.phoneEmailViewProfileContainer} hitSlop={utils.slopQuick(15)} onPress={() => dialOrEmail('Dialing')}>
                         <FontAwesome style={styles.iconStyle} name='phone' color='rgb(255,255,255)' size={22}/>
                         <Text style={styles.phoneEmailViewProfileText}>{props.contactInfo.phone}</Text>
                     </TouchableOpacity>
                     : null}
                 { props.contactInfo.email !== '' ?
-                    <TouchableOpacity style={styles.phoneEmailViewProfileContainer} hitSlop={utils.slopQuick(15)} onPress={() => dialOrEmail('email')}>
+                    <TouchableOpacity style={styles.phoneEmailViewProfileContainer} hitSlop={utils.slopQuick(15)} onPress={() => dialOrEmail('Emailing')}>
                         <Ionicons style={styles.iconStyle} name='ios-mail' color='rgb(255,255,255)' size={22}/>
                         <Text style={styles.phoneEmailViewProfileText}>{utils.breakEmailBeforeAt(props.contactInfo.email.toLowerCase())}</Text>
                     </TouchableOpacity>

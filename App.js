@@ -57,7 +57,8 @@ const store = createStore(rootReducer)
 const fetchFonts = () => {
     return Font.loadAsync({
         'helvetica-regular': require('./src/assets/fonts/Helvetica-Regular.ttf'),
-        'helvetica-bold': require('./src/assets/fonts/Helvetica-Bold.ttf')
+        'helvetica-bold': require('./src/assets/fonts/Helvetica-Bold.ttf'),
+        'helvetica-italic': require('./src/assets/fonts/Helvetica-Italic.ttf')
     })
 }
 

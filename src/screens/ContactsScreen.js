@@ -15,8 +15,8 @@ const ContactsScreen = props => {
     const last = contacts[0].id
     contacts.reverse()
 
-    const getName = (name, type) => {
-        props.navigation.setParams({name: name, type: type})
+    const getName = (customHeaderString, type) => {
+        props.navigation.setParams({customHeaderString: customHeaderString, type: type})
     }
 
     return (
@@ -26,11 +26,6 @@ const ContactsScreen = props => {
                 <FlatList
                     data={contacts}
                     keyExtractor={item => item.id}
-                    initialNumToRender={4}
-                    onEndReached={({ distanceFromEnd }) => {
-                        console.log(distanceFromEnd) //Might do something with this data
-                    }}
-                    onEndReachedThreshold={.8} //Not totally necessary right now might do something with this data
                     renderItem={itemData =>
                         <ContactCard
                             contactInfo={itemData.item}
@@ -46,11 +41,11 @@ const ContactsScreen = props => {
 
 ContactsScreen.navigationOptions = navData => {
 
-    const name = navData.navigation.getParam('name')
+    const customHeaderString = navData.navigation.getParam('customHeaderString')
     const type = navData.navigation.getParam('type')
-    const string = type !== 'Contacts' && type !== undefined ? (type === 'dial' ? `Dialing ${name}...` : `Emailing ${name}...`) : 'Contacts'
+    const string = type !== 'Contacts' && type !== undefined ? customHeaderString : 'Contacts'
     const fontSize = string === 'Contacts' ? 23 : 18
-    const fontFamily = string === 'Contacts' ? 'helvetica-bold' : 'helvetica-regular'
+    const fontFamily = string === 'Contacts' ? 'helvetica-bold' : 'helvetica-italic'
 
     return (
         {

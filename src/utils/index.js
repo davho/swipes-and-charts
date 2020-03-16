@@ -302,6 +302,22 @@ export default {
 
 
 
+    spellInHeader: (navUpdateFunction, customHeaderString, type) => {
+
+        let customHeaderArray = customHeaderString.split('')
+
+        let tempCustomHeaderString = ''
+
+        customHeaderArray.forEach(char => {
+            setTimeout(() => {
+                tempCustomHeaderString = `${tempCustomHeaderString}${char}`
+                navUpdateFunction(tempCustomHeaderString, type)
+            }, 0)
+        })
+    },
+
+
+
     slopQuick: slopValue => {
         return {
             top: slopValue,
