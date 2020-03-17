@@ -1,5 +1,6 @@
-class MyDummyNewsData {
-    constructor(type, date, title, url, snippet) {
+class MyDummyArticle {
+    constructor(id, type, date, title, url, snippet) {
+        this.id = id
         this.type = type
         this.date = date
         this.title = title
@@ -8,4 +9,4 @@ class MyDummyNewsData {
     }
 }
 
-export default MyDummyNewsData
+export default MyDummyArticle

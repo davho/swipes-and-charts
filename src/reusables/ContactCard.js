@@ -29,7 +29,7 @@ const ContactCard = props => {
 
     return (
         <TouchableOpacity
-            style={{...styles.cardContainer, marginTop: props.isFirst ? 16 : null, marginBottom: props.isLast ? 16 : null}}
+            style={{...config.translucentCard, flexDirection: 'row', marginTop: props.isFirst ? 16 : null, marginBottom: props.isLast ? 16 : null}}
             activeOpacity={.5}
             onPress={() => WebBrowser.openBrowserAsync(props.contactInfo.profileUrl)}
             >
@@ -70,20 +70,6 @@ const ContactCard = props => {
 }
 
 const styles = StyleSheet.create({
-    cardContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        backgroundColor: 'rgba(255,255,255,.1)',
-        marginVertical: 7,
-        marginHorizontal: 14,
-        borderRadius: 10,
-        padding: 12,
-        //elevation: 5, //Elevation is specific to Android and not having the desired effect
-        shadowColor: 'rgb(7,26,64)',
-        shadowOpacity: .5,
-        shadowOffset: {width: 0, height: 0}, //Must specify the shadowOffset as {width: 0, height: 0} because, for some reason, it defaults to {width: 0, height: -3}
-        shadowRadius: 3
-    },
     column1: {
         alignItems: 'center'
     },
@@ -111,13 +97,13 @@ const styles = StyleSheet.create({
     name: {
         color: 'rgb(255,255,255)',
         paddingVertical: 5,
-        fontFamily: 'helvetica-bold',
+        fontFamily: 'roboto-700-regular',
         fontSize: 20
     },
     title: {
         color: 'rgb(255,255,255)',
         paddingBottom: 5,
-        fontFamily: 'helvetica-regular',
+        fontFamily: 'roboto-400-regular',
         fontSize: 16
     },
     phoneEmailViewProfileContainer: {
@@ -128,7 +114,7 @@ const styles = StyleSheet.create({
     phoneEmailViewProfileText: {
         color: 'rgb(76,176,236)',
         paddingBottom: 5,
-        fontFamily: 'helvetica-regular',
+        fontFamily: 'roboto-400-regular',
         fontSize: 16
     },
     iconStyle: {

@@ -34,6 +34,7 @@ enableScreens()
 import tasksReducer from './src/redux/tasksReducer'
 import loginReducer from './src/redux/loginReducer'
 import contactsReducer from './src/redux/contactsReducer'
+import articlesReducer from './src/redux/articlesReducer'
 
 import AppNavContainer from './src/navigation/AppNavContainer'
 
@@ -48,7 +49,8 @@ import AppNavContainer from './src/navigation/AppNavContainer'
 const rootReducer = combineReducers({
     tasksReducer: tasksReducer,
     loginReducer: loginReducer,
-    contactsReducer: contactsReducer
+    contactsReducer: contactsReducer,
+    articlesReducer: articlesReducer
 })
 const store = createStore(rootReducer)
 
@@ -56,9 +58,12 @@ const store = createStore(rootReducer)
 
 const fetchFonts = () => {
     return Font.loadAsync({
-        'helvetica-regular': require('./src/assets/fonts/Helvetica-Regular.ttf'),
-        'helvetica-bold': require('./src/assets/fonts/Helvetica-Bold.ttf'),
-        'helvetica-italic': require('./src/assets/fonts/Helvetica-Italic.ttf')
+        'roboto-100-italic': require('./src/assets/fonts/Roboto-100-Italic.ttf'),
+        'roboto-400-regular': require('./src/assets/fonts/Roboto-400-Regular.ttf'),
+        'roboto-400-italic': require('./src/assets/fonts/Roboto-400-Italic.ttf'),
+        'roboto-500-regular': require('./src/assets/fonts/Roboto-500-Regular.ttf'),
+        'roboto-700-regular': require('./src/assets/fonts/Roboto-700-Regular.ttf'),
+        'roboto-900-regular': require('./src/assets/fonts/Roboto-900-Regular.ttf')
     })
 }
 

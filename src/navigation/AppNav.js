@@ -4,13 +4,11 @@ import React from 'react'
 import { Platform, Text } from 'react-native'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
-import { createBottomTabNavigator } from 'react-navigation-tabs' //https://reactnavigation.org/docs/en/bottom-tab-navigator.html
-
-import { useSelector } from 'react-redux'
+import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs' //https://reactnavigation.org/docs/en/bottom-tab-navigator.html, https://reactnavigation.org/docs/4.x/material-top-tab-navigator (Note that I'm using react-navigation version 4 here and things changed considerably between 4 and 5, not functionally, just syntactically)
 
 import { MaterialCommunityIcons, MaterialIcons, AntDesign, FontAwesome } from 'react-native-vector-icons'
 
-import { TasksScreen, InputScreen, AuthScreen, ChartsScreen, DummyAccountTypeScreen, NewsScreen, ContactsScreen } from '../screens'
+import { TasksScreen, InputScreen, AuthScreen, ChartsScreen, DummyAccountTypeScreen, NewsScreenAEOI, NewsScreenFederal, NewsScreenState, NewsScreenDTS, ContactsScreen } from '../screens'
 
 
 const defaultStackNavigatorOptions = {
@@ -19,12 +17,12 @@ const defaultStackNavigatorOptions = {
     },
     headerTintColor: Platform.OS === 'ios' ? 'rgb(7,26,64)' : 'rgb(255,255,255)',
     headerTitleStyle: {
-      fontFamily: 'helvetica-bold',
+      fontFamily: 'roboto-900-regular',
       fontSize: 23
     },
 }
 
-const defaultTabNavigatorOptions = ({ navigation }) => ({
+const defaultBottomTabNavigatorOptions = ({ navigation }) => ({
 
     tabBarIcon: ({ focused, horizontal, tintColor }) => {
 
@@ -76,7 +74,7 @@ const defaultTabNavigatorOptions = ({ navigation }) => ({
         const { routeName } = navigation.state
 
         //In the below case of returning a <Text> component with the tabBarName so that there's styling flexibility among other things, alignSelf: 'center' needs to be there only for Android's sake
-        return <Text style={{alignSelf: 'center', fontWeight: focused ? 'bold' : null, fontStyle: !focused ? 'italic' : null, color: tintColor}}>{focused ? `|${routeName}|` : routeName}</Text>
+        return <Text style={{alignSelf: 'center', fontFamily: focused ? 'roboto-900-regular' : 'roboto-400-italic', color: tintColor, fontSize: 12}}>{focused ? `-${routeName}-` : routeName}</Text>
     }
 
 })
@@ -84,13 +82,52 @@ const defaultTabNavigatorOptions = ({ navigation }) => ({
 
 
 
-const tabBarOptions = {
-    activeTintColor: Platform.OS === 'ios' ? 'rgb(7,26,64)' : 'rgb(7,26,64)',
-    inactiveTintColor:  Platform.OS === 'ios' ? 'rgba(89,147,91,.8)' : 'rgb(255,255,255)',
-    activeBackgroundColor: 'rgba(89,147,91,.8)',
+const bottomTabBarOptions = {
+    activeTintColor: Platform.OS === 'ios' ? 'rgb(7,26,64)' : 'rgb(255,255,255)',
+    inactiveTintColor: Platform.OS === 'ios' ? 'rgba(7,26,64,.2)' : 'rgba(255,255,255,.2)',
+    activeBackgroundColor: Platform.OS === 'ios' ? 'rgb(255,255,255)' : 'rgb(7,26,64)',
     inactiveBackgroundColor: Platform.OS === 'ios' ? 'rgb(255,255,255)' : 'rgb(7,26,64)'
 }
 
+
+
+
+const topTabBarOptions = {
+    activeTintColor: 'rgb(255,255,255)',
+    inactiveTintColor: 'rgb(255,128,128)',
+    upperCaseLabel: false,
+    pressOpacity: .7,
+    indicatorStyle: {
+        backgroundColor: 'rgb(255,255,255)'
+    },
+    labelStyle: {
+        fontFamily: 'roboto-500-regular',
+        fontSize: 16,
+    },
+    style: {
+        backgroundColor: 'rgba(255,0,0,.75)',
+        height: 50, //50 is indeed the default but I want to reiterate it here so it's know that the FlatLists rendered underneath must in turn offset by 50
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0
+    }
+}
+
+
+
+
+const NewsMaterialTopTabNav = createMaterialTopTabNavigator({
+    AEOI: NewsScreenAEOI,
+    Federal: NewsScreenFederal,
+    State: NewsScreenState,
+    DTS: NewsScreenDTS
+}, {
+    tabBarOptions: topTabBarOptions,
+    timingConfig: {
+        duration: 500
+    }
+})
 
 
 
@@ -114,7 +151,7 @@ const ChartsSingleStackNav = createStackNavigator({
 })
 
 const NewsSingleStackNav = createStackNavigator({
-    News: NewsScreen
+    News: NewsMaterialTopTabNav
 }, {
     defaultNavigationOptions: defaultStackNavigatorOptions
 })
@@ -133,7 +170,7 @@ const DummySingleStackNav = createStackNavigator({
 
 //The 3 different bottom tab navigators below correspond to the 3 account types. You will choose one account type in AuthScreen.js, which updates the account type redux is then used in AppNavContainer to choose which bottom tab navigator to render. This simulates data coming in from a server that specifies which account type you have based on your login credentials.
 
-const BottomTabsNavAdmin = createBottomTabNavigator({
+const BottomTabNavAdmin = createBottomTabNavigator({
     'Admin (example)': DummySingleStackNav,
     'Another Admin (example)': DummySingleStackNav,
     'Yet another Admin (example)': DummySingleStackNav,
@@ -142,11 +179,11 @@ const BottomTabsNavAdmin = createBottomTabNavigator({
     Charts: ChartsSingleStackNav
 
 }, {
-    defaultNavigationOptions: defaultTabNavigatorOptions,
-    tabBarOptions: tabBarOptions
+    defaultNavigationOptions: defaultBottomTabNavigatorOptions,
+    tabBarOptions: bottomTabBarOptions
 })
 
-const BottomTabsNavClient = createBottomTabNavigator({
+const BottomTabNavClient = createBottomTabNavigator({
     'Client (example)': DummySingleStackNav,
     'Another Client (example)': DummySingleStackNav,
     Tasks: TasksSingleStackNav,
@@ -154,30 +191,30 @@ const BottomTabsNavClient = createBottomTabNavigator({
     Charts: ChartsSingleStackNav
 
 }, {
-    defaultNavigationOptions: defaultTabNavigatorOptions,
-    tabBarOptions: tabBarOptions
+    defaultNavigationOptions: defaultBottomTabNavigatorOptions,
+    tabBarOptions: bottomTabBarOptions
 })
 
-const BottomTabsNavNewsContacts = createBottomTabNavigator({
+const BottomTabNavNewsContacts = createBottomTabNavigator({
     Tasks: TasksSingleStackNav,
     Add: InputSingleStackNav,
     Charts: ChartsSingleStackNav,
     News: NewsSingleStackNav,
     Contacts: ContactsSingleStackNav,
 }, {
-    defaultNavigationOptions: defaultTabNavigatorOptions,
-    tabBarOptions: tabBarOptions
+    defaultNavigationOptions: defaultBottomTabNavigatorOptions,
+    tabBarOptions: bottomTabBarOptions
 })
 
-const BottomTabsNavPublic = createBottomTabNavigator({
+const BottomTabNavPublic = createBottomTabNavigator({
     'Public (example)': DummySingleStackNav,
     Tasks: TasksSingleStackNav,
     Add: InputSingleStackNav,
     Charts: ChartsSingleStackNav
 
 }, {
-    defaultNavigationOptions: defaultTabNavigatorOptions,
-    tabBarOptions: tabBarOptions
+    defaultNavigationOptions: defaultBottomTabNavigatorOptions,
+    tabBarOptions: bottomTabBarOptions
 })
 
 
@@ -185,10 +222,10 @@ const BottomTabsNavPublic = createBottomTabNavigator({
 
 const AppNav = createSwitchNavigator({ //After Auth, depending on what account type is chosen, the corresponding bottom tab navigator is loaded
     Auth: AuthScreen,
-    AppAdmin: BottomTabsNavAdmin,
-    AppClient: BottomTabsNavClient,
-    AppNewsContacts: BottomTabsNavNewsContacts,
-    AppPublic: BottomTabsNavPublic
+    AppAdmin: BottomTabNavAdmin,
+    AppClient: BottomTabNavClient,
+    AppNewsContacts: BottomTabNavNewsContacts,
+    AppPublic: BottomTabNavPublic
 })
 
 

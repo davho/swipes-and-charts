@@ -3,7 +3,10 @@ import InputScreen from './InputScreen'
 import AuthScreen from './AuthScreen'
 import ChartsScreen from './ChartsScreen'
 import DummyAccountTypeScreen from './DummyAccountTypeScreen'
-import NewsScreen from './NewsScreen'
+import NewsScreenAEOI from './NewsScreens/NewsScreenAEOI'
+import NewsScreenFederal from './NewsScreens/NewsScreenFederal'
+import NewsScreenState from './NewsScreens/NewsScreenState'
+import NewsScreenDTS from './NewsScreens/NewsScreenDTS'
 import ContactsScreen from './ContactsScreen'
 
 export {
@@ -12,6 +15,9 @@ export {
     AuthScreen,
     ChartsScreen,
     DummyAccountTypeScreen,
-    NewsScreen,
+    NewsScreenAEOI,
+    NewsScreenFederal,
+    NewsScreenState,
+    NewsScreenDTS,
     ContactsScreen
 }

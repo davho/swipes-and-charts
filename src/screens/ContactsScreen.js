@@ -45,7 +45,7 @@ ContactsScreen.navigationOptions = navData => {
     const type = navData.navigation.getParam('type')
     const string = type !== 'Contacts' && type !== undefined ? customHeaderString : 'Contacts'
     const fontSize = string === 'Contacts' ? 23 : 18
-    const fontFamily = string === 'Contacts' ? 'helvetica-bold' : 'helvetica-italic'
+    const fontFamily = string === 'Contacts' ? 'roboto-900-regular' : 'roboto-100-italic'
 
     return (
         {
